@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Matematika</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg,#0f172a,#1e293b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .game-box {
+      background: rgba(0,0,0,0.4);
+      padding: 30px;
+      border-radius: 20px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      background: #22c55e;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .soal {
+      font-size: 22px;
+      margin: 15px 0;
+    }
+
+    .hasil {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    .skor {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-box">
+    <h1>🎯 Game Matematika</h1>
+
+    <select id="mode">
+      <option value="+">Penjumlahan</option>
+      <option value="-">Pengurangan</option>
+      <option value="*">Perkalian</option>
+      <option value="/">Pembagian</option>
+    </select>
+
+    <div class="soal" id="soal">Klik Mulai</div>
+
+    <input type="number" id="jawaban" placeholder="Masukkan Jawaban">
+
+    <button onclick="cekJawaban()">Cek Jawaban</button>
+    <button onclick="buatSoal()">Soal Baru</button>
+
+    <div class="hasil" id="hasil"></div>
+    <div class="skor">Skor: <span id="skor">0</span></div>
+  </div>
+
+  <script>
+    let a, b, hasilBenar;
+    let skor = 0;
+
+    function buatSoal() {
+      const mode = document.getElementById("mode").value;
+      a = Math.floor(Math.random() * 10) + 1;
+      b = Math.floor(Math.random() * 10) + 1;
+
+      if (mode === "/") {
+        hasilBenar = a;
+        a = a * b;
+      }
+
+      if (mode === "+") hasilBenar = a + b;
+      if (mode === "-") hasilBenar = a - b;
+      if (mode === "*") hasilBenar = a * b;
+      if (mode === "/") hasilBenar = a / b;
+
+      document.getElementById("soal").innerHTML = `${a} ${mode} ${b} = ?`;
+      document.getElementById("jawaban").value = "";
+      document.getElementById("hasil").innerHTML = "";
+    }
+
+    function cekJawaban() {
+      const jawabanUser = Number(document.getElementById("jawaban").value);
+
+      if (jawabanUser === hasilBenar) {
+        document.getElementById("hasil").innerHTML = "✅ Benar!";
+        skor++;
+      } else {
+        document.getElementById("hasil").innerHTML = "❌ Salah! Jawaban: " + hasilBenar;
+        skor--;
+      }
+
+      document.getElementById("skor").innerText = skor;
+      setTimeout(buatSoal, 1000);
+    }
+  </script>
+
+</body>
+</html>

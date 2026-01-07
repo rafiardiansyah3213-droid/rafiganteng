@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Mario Style Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin:0;
+  background: linear-gradient(#60a5fa,#86efac);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+canvas{
+  background:#7dd3fc;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+#ui{
+  position:absolute;
+  top:10px;
+  left:10px;
+  color:white;
+  font-family:Arial;
+  font-weight:bold;
+}
+button{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  padding:12px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:12px;
+  background:black;
+  color:white;
+}
+</style>
+</head>
+<body>
+
+<div id="ui">Score: <span id="score">0</span></div>
+<button onclick="jump()">JUMP</button>
+
+<canvas id="game" width="360" height="600"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let score = 0;
+
+const player = {
+  x: 50,
+  y: 450,
+  w: 40,
+  h: 50,
+  vy: 0,
+  jumpPower: -15,
+  onGround: false
+};
+
+const gravity = 0.8;
+const ground = 520;
+
+// platform
+let platforms = [
+  {x:0, y:520, w:360, h:80},
+  {x:160, y:420, w:80, h:20},
+  {x:280, y:350, w:80, h:20}
+];
+
+// musuh
+let enemies = [
+  {x:300, y:490, w:35, h:35, dir:-1}
+];
+
+// koin
+let coins = [
+  {x:180, y:380, r:10},
+  {x:310, y:320, r:10}
+];
+
+function jump(){
+  if(player.onGround){
+    player.vy = player.jumpPower;
+    player.onGround = false;
+  }
+}
+
+document.addEventListener("keydown", e=>{
+  if(e.code==="Space") jump();
+});
+
+function update(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // background
+  ctx.fillStyle="#7dd3fc";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // gravity
+  player.vy += gravity;
+  player.y += player.vy;
+
+  player.onGround = false;
+
+  // platform collision
+  platforms.forEach(p=>{
+    if(player.x < p.x+p.w &&
+       player.x+player.w > p.x &&
+       player.y+player.h < p.y+player.vy &&
+       player.y+player.h+player.vy >= p.y){
+         player.y = p.y - player.h;
+         player.vy = 0;
+         player.onGround = true;
+    }
+  });
+
+  // kirim balik ke tanah
+  if(player.y > ground-player.h){
+    player.y = ground-player.h;
+    player.vy = 0;
+    player.onGround = true;
+  }
+
+  // gambar platform
+  ctx.fillStyle="#16a34a";
+  platforms.forEach(p=>{
+    ctx.fillRect(p.x,p.y,p.w,p.h);
+  });
+
+  // player
+  ctx.fillStyle="red";
+  ctx.fillRect(player.x,player.y,player.w,player.h);
+
+  // musuh
+  enemies.forEach(e=>{
+    e.x += e.dir * 1.5;
+    if(e.x<0 || e.x>325) e.dir *= -1;
+
+    ctx.fillStyle="purple";
+    ctx.fillRect(e.x,e.y,e.w,e.h);
+
+    // tabrakan musuh
+    if(
+      player.x < e.x+e.w &&
+      player.x+player.w > e.x &&
+      player.y < e.y+e.h &&
+      player.y+player.h > e.y
+    ){
+      alert("GAME OVER!");
+      location.reload();
+    }
+  });
+
+  // koin
+  coins = coins.filter(c=>{
+    ctx.fillStyle="gold";
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+    ctx.fill();
+
+    let dx = player.x - c.x;
+    let dy = player.y - c.y;
+    if(Math.sqrt(dx*dx+dy*dy) < 25){
+      score += 10;
+      document.getElementById("score").innerText = score;
+      return false;
+    }
+    return true;
+  });
+
+  requestAnimationFrame(update);
+}
+
+update();
+</script>
+</body>
+</html>

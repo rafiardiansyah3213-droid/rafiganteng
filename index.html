@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio — rafi</title>
+  <meta name="description" content="Portofolio pribadi — biodata, projek, blog smarthome, kontak." />
+  <meta name="theme-color" content="#0b3d91" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="logo">RF</div>
+        <div>
+          <div style="font-weight: 700">rafi ardiansyah egi ramadhan</div>
+          <div style="font-size: 0.9rem; color: var(--muted)">Portofolio & Projek — RPL</div>
+        </div>
+      </div>
+
+      <div class="side-nav" id="sideNav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Project</a>
+        <a href="games.html">Game</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <button class="side-toggle" onclick="toggleSideNav()">☰</button>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-left">
+
+        <div class="card">
+          <h1>Halo</h1>
+          <p class="lead">Selamat datang di web portofolio saya</p>
+          <div style="display: flex; gap: 10px; margin-top: 12px">
+            <a class="btn outline" href="#portfolio" style="color: var(--primary)">Project</a>
+          </div>
+        </div>
+
+        <div class="sosial-box">
+          <a href="https://youtube.com" target="_blank" class="sosial-card yt">▶ YouTube</a>
+          <a href="https://tiktok.com" target="_blank" class="sosial-card tt">♪ TikTok</a>
+          <a href="https://instagram.com" target="_blank" class="sosial-card ig">⧉ Instagram</a>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="profile-grid">
+
+          <div class="card" style="text-align: center">
+            <img src="rafi.jpeg" alt="Foto profil" class="profile-img" />
+            <h3 style="margin: 12px 0 4px 0">rafi ardiansyah</h3>
+            <div class="muted">SMKN Pasirian — Jurusan RPL</div>
+            <div style="margin-top: 8px">
+              <a class="btn" href="#contact">Hubungi</a>
+            </div>
+          </div>
+
+          <div class="card" style="text-align: center">
+            <video class="profile-video" autoplay loop muted>
+              <source src="iam.mp4" type="video/mp4">
+              Browser tidak mendukung video.
+            </video>
+          </div>
+
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="card">
+        <h2>Tentang saya</h2>
+        <p>
+          Saya adalah Rafi Ardiansyah dari SMKN Pasirian, jurusan RPL. Saya menyukai pemrograman,
+          pembuatan website, dan proyek mikrokontroler seperti ESP8266 dan Arduino.
+        </p>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="card">
+        <h2>Project</h2>
+        <p class="lead">Dokumentasi hasil karya kami.</p>
+
+        <div class="grid grid-3">
+          <figure class="portfolio-item card">
+            <img src="avoider.jpeg">
+            <figcaption>Avoider</figcaption>
+          </figure>
+
+          <figure class="portfolio-item card">
+            <img src="pengukur.jpeg">
+            <figcaption>Pengukur Jarak</figcaption>
+          </figure>
+
+          <figure class="portfolio-item card">
+            <img src="smart.jpeg">
+            <figcaption>Prototype Smarthome</figcaption>
+          </figure>
+        </div>
+
+        <div class="card">
+          <h3>Avoider</h3>
+          <p class="muted">sensor ultrasonik, arduino uno, motor driver</p>
+        </div>
+
+        <div class="card">
+          <h3>Pengukur Jarak</h3>
+          <p class="muted">sensor ultrasonik, arduino uno</p>
+        </div>
+
+        <div class="card">
+          <h3>Smarthome</h3>
+          <p class="muted">esp8266, relay, led</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog">
+      <div class="card">
+        <h2>Blog</h2>
+
+        <article class="card">
+          <div class="blog-meta">Diposting 2025</div>
+          <p class="muted">
+            Saya hobi bermain sepak bola dan melakukan running, dua kegiatan yang memberi saya energi.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card">
+        <h2>Contact</h2>
+
+        <div class="contact-grid">
+          <div class="card">
+            <strong>Email</strong>
+            <div class="muted">rafilmj11@gmail.com</div>
+          </div>
+
+          <div class="card">
+            <strong>Telepon</strong>
+            <div class="muted">+62 857-3561-4212</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section id="map">
+      <div class="card">
+        <h2>Lokasi Saya</h2>
+
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d291.32189602113107!2d113.11132348298744!3d-8.208086592761669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sid!4v1765335753060!5m2!1sen!2sid" 
+          width="100%"
+          height="350"
+          style="border:0; border-radius:12px;"
+          loading="lazy">
+        </src=>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>© <span id="year"></span> rafi</footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

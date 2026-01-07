@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Terjemahan Inggris</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .game-box {
+      background: rgba(0,0,0,0.4);
+      padding: 30px;
+      border-radius: 20px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .kalimat {
+      font-size: 20px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      background: #22c55e;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .hasil {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    .skor {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-box">
+    <h1>🇬🇧➡🇮🇩 Game Terjemahan</h1>
+
+    <div class="kalimat" id="kalimat">Klik Mulai</div>
+
+    <input type="text" id="jawaban" placeholder="Masukkan arti bahasa Indonesia">
+
+    <button onclick="cekJawaban()">Cek Jawaban</button>
+    <button onclick="soalBaru()">Soal Baru</button>
+
+    <div class="hasil" id="hasil"></div>
+    <div class="skor">Skor: <span id="skor">0</span></div>
+  </div>
+
+  <script>
+    const soal = [
+      { en: "I go to school", id: "saya pergi ke sekolah" },
+      { en: "She is my friend", id: "dia adalah teman saya" },
+      { en: "We love our parents", id: "kami mencintai orang tua kami" },
+      { en: "He plays football", id: "dia bermain sepak bola" },
+      { en: "They are very happy", id: "mereka sangat bahagia" },
+      { en: "I eat rice every day", id: "saya makan nasi setiap hari" },
+      { en: "My mother is cooking", id: "ibu saya sedang memasak" }
+    ];
+
+    let soalAktif;
+    let skor = 0;
+
+    function soalBaru() {
+      const random = Math.floor(Math.random() * soal.length);
+      soalAktif = soal[random];
+
+      document.getElementById("kalimat").innerText = soalAktif.en;
+      document.getElementById("jawaban").value = "";
+      document.getElementById("hasil").innerHTML = "";
+    }
+
+    function cekJawaban() {
+      const jawabanUser = document.getElementById("jawaban").value.toLowerCase().trim();
+      const jawabanBenar = soalAktif.id.toLowerCase();
+
+      if (jawabanUser === jawabanBenar) {
+        document.getElementById("hasil").innerHTML = "✅ Jawaban Benar!";
+        skor++;
+      } else {
+        document.getElementById("hasil").innerHTML = "❌ Salah! Jawaban benar: <br>" + soalAktif.id;
+        skor--;
+      }
+
+      document.getElementById("skor").innerText = skor;
+      setTimeout(soalBaru, 1500);
+    }
+  </script>
+
+</body>
+</html>
